@@ -38,18 +38,19 @@ class ViewController: UIViewController {
         newRound()
     }
     
+    var totalPoints = 0
+    
     //Creates a new word for the game
     func newRound() {
         if !listOfWords.isEmpty {
             let newWord = listOfWords.removeFirst()
-            currentGame = Game(word: newWord, incorrectMovesRemaining: incorrectMovesAllowed, guessedLetters: [])
+            currentGame = Game(word: newWord, incorrectMovesRemaining: incorrectMovesAllowed, guessedLetters: [], points: totalPoints)
             enableLetterButtons(true)
             updateUI()
             print("newRound")
         } else {
             enableLetterButtons(false)
         }
-        
     }
     
     func enableLetterButtons(_ enable: Bool) {
@@ -57,23 +58,7 @@ class ViewController: UIViewController {
             button.isEnabled = enable
         }
     }
-    
-    func updateUI() {
-        //var letters = [String]()
-        
-        //Concatenates the collection of string characters
-        /*for letter in currentGame.formattedWord {
-            letters.append(String(letter))
-        }*/
-        let letters = currentGame.formattedWord.map { String($0) }
-        
-        //Each letter in the array is joined togheter with a space
-        let wordWithSpacing = letters.joined(separator: " ")
-        correctWordLabel.text = wordWithSpacing
-        scoreLabel.text = "Wins: \(totalWins), Losses: \(totalLosses)"
-        treeImageView.image = UIImage(named:"Tree \(currentGame.incorrectMovesRemaining)")
-    }
-    
+
     @IBAction func buttonPressed(_ sender: UIButton) {
         sender.isEnabled = false
         let letterString = sender.title(for: .normal)!
@@ -84,16 +69,36 @@ class ViewController: UIViewController {
         //updateUI()
     }
     
+    //Add scoring feature that awards points for each correct guess and additional points for each successful word completion
+    
+    
     func updateGameState() {
         if currentGame.incorrectMovesRemaining == 0 {
             totalLosses += 1
         } else if currentGame.word == currentGame.formattedWord {
+            totalPoints = currentGame.points + 10
             totalWins += 1
         } else {
             updateUI()
         }
     }
     
+    func updateUI() {
+        //var letters = [String]()
+        
+        //Concatenates the collection of string characters
+        /*for letter in currentGame.formattedWord {
+            letters.append(String(letter))
+        }*/
+        
+        let letters = currentGame.formattedWord.map { String($0) }
+        
+        //Each letter in the array is joined togheter with a space
+        let wordWithSpacing = letters.joined(separator: " ")
+        correctWordLabel.text = wordWithSpacing
+        scoreLabel.text = "Wins: \(totalWins), Losses: \(totalLosses), Points: \(currentGame.points)"
+        treeImageView.image = UIImage(named:"Tree \(currentGame.incorrectMovesRemaining)")
+    }
 
     
 }

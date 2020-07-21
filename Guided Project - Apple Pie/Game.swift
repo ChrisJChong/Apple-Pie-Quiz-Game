@@ -12,11 +12,15 @@ struct Game {
     var word: String
     var incorrectMovesRemaining: Int
     var guessedLetters: [Character]
+    var points: Int
     
     mutating func playerGuessed(letter: Character) {
         guessedLetters.append(letter)
         if !word.contains(letter) {
             incorrectMovesRemaining -= 1
+        } else {
+            //Letter was guessed correctly
+            points += 1
         }
     }
     
@@ -31,5 +35,6 @@ struct Game {
         }
         return guessedWord
     }
+
     
 }
