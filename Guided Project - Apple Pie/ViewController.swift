@@ -59,19 +59,19 @@ class ViewController: UIViewController {
     }
     
     func updateUI() {
-        var letters = [String]()
+        //var letters = [String]()
         
         //Concatenates the collection of string characters
-        for letter in currentGame.formattedWord {
+        /*for letter in currentGame.formattedWord {
             letters.append(String(letter))
-        }
-        //let letters = currentGame.formattedWord.map { String($0) }
+        }*/
+        let letters = currentGame.formattedWord.map { String($0) }
         
         //Each letter in the array is joined togheter with a space
         let wordWithSpacing = letters.joined(separator: " ")
         correctWordLabel.text = wordWithSpacing
         scoreLabel.text = "Wins: \(totalWins), Losses: \(totalLosses)"
-        treeImageView.image = UIImage(named: "Tree \(currentGame.incorrectMovesRemaining)")
+        treeImageView.image = UIImage(named:"Tree \(currentGame.incorrectMovesRemaining)")
     }
     
     @IBAction func buttonPressed(_ sender: UIButton) {
