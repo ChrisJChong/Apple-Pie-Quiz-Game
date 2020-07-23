@@ -8,15 +8,20 @@
 
 import Foundation
 
+
+
+
 struct Game {
     var word: String
     var incorrectMovesRemaining: Int
     var guessedLetters: [Character]
     var points: Int
-    
+    var playerID: Int
+
     mutating func playerGuessed(letter: Character) {
         guessedLetters.append(letter)
         if !word.contains(letter) {
+            //Letter was guessed incorrectly
             incorrectMovesRemaining -= 1
         } else {
             //Letter was guessed correctly
@@ -35,6 +40,5 @@ struct Game {
         }
         return guessedWord
     }
-
     
 }

@@ -10,9 +10,14 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var totalPoints = 0
     var currentGame: Game!
     let incorrectMovesAllowed = 7
     var listOfWords = ["buccaneer","swift","glorious","incandescent","bug","program"]
+    
+    var listOfPlayerNames = ["Bob","Susan","Lily","Ben"]
+    
+    var players : [Player] = []
     
     var totalWins = 0 {
         didSet {
@@ -26,6 +31,10 @@ class ViewController: UIViewController {
         }
     }
         
+    @IBOutlet weak var newGameButton: UIButton!
+    @IBOutlet weak var numberOfPlayers: UISegmentedControl!
+    @IBOutlet weak var playerLabel: UILabel!
+    
     @IBOutlet weak var treeImageView: UIImageView!
     @IBOutlet weak var correctWordLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
@@ -34,17 +43,45 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("viewDidLoad")
-        // Do any additional setup after loading the view.
-        newRound()
+        
+        //Default to Player 1 - Always assume there is at least one player at the moment
+        //currentGame//Player(id: <#T##Int#>, name: <#T##String#>)
+        
+        //Initially disable buttons
+        enableLetterButtons(false)
+        
+        //Let user know that they have to choose the number of players
+        playerLabel.text = "Choose the number of players!"
+        
     }
     
-    var totalPoints = 0
+    //When
+    @IBAction func newGamePressed(_ sender: UIButton) {
+        let index = numberOfPlayers.selectedSegmentIndex
+        
+        if let num = Int(numberOfPlayers.titleForSegment(at: index)!) {
+            print("Number of players selected: \(num)")
+            //Add the number of players based on the number of players selected in the UISegmentControl
+            for i in 1...num {
+                players.append(Player(name: listOfPlayerNames[i]))
+            }
+            print("\(players)")
+            print("\(players.count)")
+            
+        }
+        //print("\(numberOfPlayers.titleForSegment(at: index) ?? "")")
+        
+        //Create a new round
+        //newRound()
+        
+    }
+    
     
     //Creates a new word for the game
     func newRound() {
         if !listOfWords.isEmpty {
             let newWord = listOfWords.removeFirst()
-            currentGame = Game(word: newWord, incorrectMovesRemaining: incorrectMovesAllowed, guessedLetters: [], points: totalPoints)
+            currentGame = Game(word: newWord, incorrectMovesRemaining: incorrectMovesAllowed, guessedLetters: [], points: totalPoints, playerID: 1)
             enableLetterButtons(true)
             updateUI()
             print("newRound")

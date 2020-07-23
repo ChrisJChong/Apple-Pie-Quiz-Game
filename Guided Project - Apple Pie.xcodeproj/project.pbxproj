@@ -14,6 +14,7 @@
 		5F53913C24AA10B0000020B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F53913B24AA10B0000020B5 /* Assets.xcassets */; };
 		5F53913F24AA10B0000020B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F53913D24AA10B0000020B5 /* LaunchScreen.storyboard */; };
 		5F53941C24B0A61E001AC20C /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F53941B24B0A61E001AC20C /* Game.swift */; };
+		5FFBA79724C90A8A007D530D /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFBA79624C90A8A007D530D /* Player.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		5F53913E24AA10B0000020B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F53914024AA10B0000020B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5F53941B24B0A61E001AC20C /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		5FFBA79624C90A8A007D530D /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				5F53913424AA10AE000020B5 /* SceneDelegate.swift */,
 				5F53913624AA10AE000020B5 /* ViewController.swift */,
 				5F53941B24B0A61E001AC20C /* Game.swift */,
+				5FFBA79624C90A8A007D530D /* Player.swift */,
 				5F53913824AA10AE000020B5 /* Main.storyboard */,
 				5F53913B24AA10B0000020B5 /* Assets.xcassets */,
 				5F53913D24AA10B0000020B5 /* LaunchScreen.storyboard */,
@@ -144,6 +147,7 @@
 				5F53913724AA10AE000020B5 /* ViewController.swift in Sources */,
 				5F53913324AA10AE000020B5 /* AppDelegate.swift in Sources */,
 				5F53913524AA10AE000020B5 /* SceneDelegate.swift in Sources */,
+				5FFBA79724C90A8A007D530D /* Player.swift in Sources */,
 				5F53941C24B0A61E001AC20C /* Game.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
