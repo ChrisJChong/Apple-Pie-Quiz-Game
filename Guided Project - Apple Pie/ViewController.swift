@@ -18,15 +18,18 @@ class ViewController: UIViewController {
     var listOfPlayerNames = ["Bob","Susan","Lily","Ben"]
     
     var players : [Player] = []
+    var playerTotal = 0
     
     var totalWins = 0 {
         didSet {
+            newGameButton.isEnabled = true
             newRound()
         }
     }
     
     var totalLosses = 0 {
         didSet {
+            newGameButton.isEnabled = true
             newRound()
         }
     }
@@ -57,22 +60,24 @@ class ViewController: UIViewController {
     
     //When
     @IBAction func newGamePressed(_ sender: UIButton) {
+        //Clear player array
+        players.removeAll()
+        
         let index = numberOfPlayers.selectedSegmentIndex
         
         if let num = Int(numberOfPlayers.titleForSegment(at: index)!) {
             print("Number of players selected: \(num)")
             //Add the number of players based on the number of players selected in the UISegmentControl
-            for i in 1...num {
+            for i in 0...num-1 {
                 players.append(Player(name: listOfPlayerNames[i]))
             }
-            print("\(players)")
-            print("\(players.count)")
             
+            playerTotal = num
         }
         //print("\(numberOfPlayers.titleForSegment(at: index) ?? "")")
         
         //Create a new round
-        //newRound()
+        newRound()
         
     }
     
@@ -81,8 +86,9 @@ class ViewController: UIViewController {
     func newRound() {
         if !listOfWords.isEmpty {
             let newWord = listOfWords.removeFirst()
-            currentGame = Game(word: newWord, incorrectMovesRemaining: incorrectMovesAllowed, guessedLetters: [], points: totalPoints, playerID: 1)
+            currentGame = Game(word: newWord, incorrectMovesRemaining: incorrectMovesAllowed, guessedLetters: [], points: totalPoints, players: playerTotal, currentPlayer: 1)
             enableLetterButtons(true)
+            newGameButton.isEnabled = false
             updateUI()
             print("newRound")
         } else {
@@ -132,6 +138,7 @@ class ViewController: UIViewController {
         
         //Each letter in the array is joined togheter with a space
         let wordWithSpacing = letters.joined(separator: " ")
+        playerLabel.text = "Player: \(currentGame.currentPlayer)"
         correctWordLabel.text = wordWithSpacing
         scoreLabel.text = "Wins: \(totalWins), Losses: \(totalLosses), Points: \(currentGame.points)"
         treeImageView.image = UIImage(named:"Tree \(currentGame.incorrectMovesRemaining)")
