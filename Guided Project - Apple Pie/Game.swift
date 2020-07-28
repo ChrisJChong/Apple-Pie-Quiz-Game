@@ -51,4 +51,13 @@ struct Game {
         return guessedWord
     }
     
+    func wordGuess(_ guessedWord: String) -> Bool {
+        
+        if word == guessedWord {
+            return true
+        } else {
+            return false
+        }
+    }
+    
 }

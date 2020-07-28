@@ -34,6 +34,7 @@ class ViewController: UIViewController {
         }
     }
         
+    @IBOutlet weak var guessWordTextField: UITextField!
     @IBOutlet weak var newGameButton: UIButton!
     @IBOutlet weak var numberOfPlayers: UISegmentedControl!
     @IBOutlet weak var playerLabel: UILabel!
@@ -49,6 +50,9 @@ class ViewController: UIViewController {
         
         //Default to Player 1 - Always assume there is at least one player at the moment
         //currentGame//Player(id: <#T##Int#>, name: <#T##String#>)
+        
+        //Disable the textfield
+        guessWordTextField.isEnabled = false
         
         //Initially disable buttons
         enableLetterButtons(false)
@@ -78,9 +82,7 @@ class ViewController: UIViewController {
         
         //Create a new round
         newRound()
-        
     }
-    
     
     //Creates a new word for the game
     func newRound() {
@@ -89,10 +91,15 @@ class ViewController: UIViewController {
             currentGame = Game(word: newWord, incorrectMovesRemaining: incorrectMovesAllowed, guessedLetters: [], points: totalPoints, players: playerTotal, currentPlayer: 1)
             enableLetterButtons(true)
             newGameButton.isEnabled = false
+            guessWordTextField.isEnabled  = true
+            numberOfPlayers.isEnabled = false
             updateUI()
             print("newRound")
         } else {
             enableLetterButtons(false)
+            guessWordTextField.isEnabled  = false
+            numberOfPlayers.isEnabled = true
+            
         }
     }
     
@@ -113,7 +120,6 @@ class ViewController: UIViewController {
     }
     
     //Add scoring feature that awards points for each correct guess and additional points for each successful word completion
-    
     
     func updateGameState() {
         if currentGame.incorrectMovesRemaining == 0 {
@@ -144,6 +150,22 @@ class ViewController: UIViewController {
         treeImageView.image = UIImage(named:"Tree \(currentGame.incorrectMovesRemaining)")
     }
 
+    @IBAction func wordDidGuess(_ sender: UITextField) {
+        
+        if let guessedWord = sender.text {
+            if currentGame.wordGuess(guessedWord) {
+                
+                totalWins += 1
+                //print("Correct word guess")
+                
+                //Clear the text input
+                sender.text = ""
+            } else {
+                //Clear the text input
+                sender.text = ""
+            }
+        }
+    }
     
 }
 

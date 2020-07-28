@@ -235,13 +235,13 @@
                                                 <rect key="frame" x="0.0" y="137.5" width="1080" height="27.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xaM-7u-EFm">
-                                                        <rect key="frame" x="0.0" y="0.0" width="360" height="27.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="216" height="27.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0kb-0i-n3y">
-                                                        <rect key="frame" x="360" y="0.0" width="360" height="28.5"/>
+                                                        <rect key="frame" x="216" y="0.0" width="216" height="28.5"/>
                                                         <segments>
                                                             <segment title="1"/>
                                                             <segment title="2"/>
@@ -249,8 +249,22 @@
                                                             <segment title="4"/>
                                                         </segments>
                                                     </segmentedControl>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Word guess:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUH-p6-kIg">
+                                                        <rect key="frame" x="432" y="0.0" width="216" height="27.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vb1-Jt-Qto">
+                                                        <rect key="frame" x="648" y="0.0" width="216" height="27.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <action selector="wordDidGuess:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="hjd-SH-AbU"/>
+                                                        </connections>
+                                                    </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ke-Qy-ONG">
-                                                        <rect key="frame" x="720" y="0.0" width="360" height="27.5"/>
+                                                        <rect key="frame" x="864" y="0.0" width="216" height="27.5"/>
                                                         <state key="normal" title="NEW GAME"/>
                                                         <connections>
                                                             <action selector="newGamePressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="F5X-uq-9F4"/>
@@ -297,6 +311,7 @@
                     </view>
                     <connections>
                         <outlet property="correctWordLabel" destination="FTI-hO-IpU" id="WRw-xT-vhs"/>
+                        <outlet property="guessWordTextField" destination="Vb1-Jt-Qto" id="0Yy-1Q-8nq"/>
                         <outlet property="newGameButton" destination="6ke-Qy-ONG" id="yZp-4d-3dO"/>
                         <outlet property="numberOfPlayers" destination="0kb-0i-n3y" id="3uQ-pa-Bh1"/>
                         <outlet property="playerLabel" destination="xaM-7u-EFm" id="i5u-HF-6EP"/>
