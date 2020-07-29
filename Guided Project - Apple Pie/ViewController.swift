@@ -22,15 +22,20 @@ class ViewController: UIViewController {
     
     var totalWins = 0 {
         didSet {
+            newGameButton.setTitle("NEW ROUND", for: .normal)
             newGameButton.isEnabled = true
-            newRound()
+            enableLetterButtons(false)
+            guessWordTextField.isEnabled  = false
+            
         }
     }
     
     var totalLosses = 0 {
         didSet {
+            newGameButton.setTitle("NEW ROUND", for: .normal)
             newGameButton.isEnabled = true
-            newRound()
+            enableLetterButtons(false)
+            guessWordTextField.isEnabled  = false
         }
     }
         
@@ -59,11 +64,10 @@ class ViewController: UIViewController {
         
         //Let user know that they have to choose the number of players
         playerLabel.text = "Choose the number of players!"
-        
     }
     
-    //When
-    @IBAction func newGamePressed(_ sender: UIButton) {
+    //Creates a new round when the button is pressed
+    @IBAction func newRoundButtonPressed(_ sender: UIButton) {
         //Clear player array
         players.removeAll()
         
@@ -96,6 +100,8 @@ class ViewController: UIViewController {
             updateUI()
             print("newRound")
         } else {
+            newGameButton.setTitle("NEW GAME", for: .normal)
+            totalPoints = 0
             enableLetterButtons(false)
             guessWordTextField.isEnabled  = false
             numberOfPlayers.isEnabled = true
@@ -116,7 +122,7 @@ class ViewController: UIViewController {
         currentGame.playerGuessed(letter: letter)
         
         updateGameState()
-        //updateUI()
+        updateUI()
     }
     
     //Add scoring feature that awards points for each correct guess and additional points for each successful word completion
@@ -124,21 +130,15 @@ class ViewController: UIViewController {
     func updateGameState() {
         if currentGame.incorrectMovesRemaining == 0 {
             totalLosses += 1
-        } else if currentGame.word == currentGame.formattedWord {
+        }
+        if currentGame.word == currentGame.formattedWord {
             totalPoints = currentGame.points + 10
+            print("Total points: \(totalPoints)")
             totalWins += 1
-        } else {
-            updateUI()
         }
     }
     
     func updateUI() {
-        //var letters = [String]()
-        
-        //Concatenates the collection of string characters
-        /*for letter in currentGame.formattedWord {
-            letters.append(String(letter))
-        }*/
         
         let letters = currentGame.formattedWord.map { String($0) }
         
@@ -146,7 +146,7 @@ class ViewController: UIViewController {
         let wordWithSpacing = letters.joined(separator: " ")
         playerLabel.text = "Player: \(currentGame.currentPlayer)"
         correctWordLabel.text = wordWithSpacing
-        scoreLabel.text = "Wins: \(totalWins), Losses: \(totalLosses), Points: \(currentGame.points)"
+        scoreLabel.text = "Wins: \(totalWins), Losses: \(totalLosses), Points: \(totalPoints)"
         treeImageView.image = UIImage(named:"Tree \(currentGame.incorrectMovesRemaining)")
     }
 
@@ -155,11 +155,23 @@ class ViewController: UIViewController {
         if let guessedWord = sender.text {
             if currentGame.wordGuess(guessedWord) {
                 
+                totalPoints += 20
                 totalWins += 1
-                //print("Correct word guess")
+                print("Correct word guess - total wins:\(totalWins)")
+                
+                for letter in guessedWord {
+                    currentGame.guessedLetters.append(letter)
+                    print("Append: \(letter)")
+                }
+                
+                enableLetterButtons(false)
+                
+                guessWordTextField.isEnabled  = false
                 
                 //Clear the text input
                 sender.text = ""
+                
+                updateUI()
             } else {
                 //Clear the text input
                 sender.text = ""
